@@ -22,7 +22,7 @@
 ```
 # pyproject.toml
 [tool.black]
-line-length = 119
+line-length = 79
 target-version = ['py314']
 exclude = '''
 (

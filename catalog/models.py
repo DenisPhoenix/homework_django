@@ -1,3 +1,77 @@
 from django.db import models
 
-# Create your models here.
+
+class Product(models.Model):
+    name = models.CharField(
+        max_length=100,
+        verbose_name="Наименование",
+        help_text="Введите продукт",
+    )
+    description = models.TextField(
+        verbose_name="Описание",
+        help_text="Введите описание",
+    )
+    image = models.ImageField(
+        upload_to="photos/",
+        verbose_name="Изображение",
+        blank=True,
+        null=True,
+        help_text="Вставьте изображение",
+    )
+    category = models.CharField(
+        max_length=100,
+        verbose_name="Категория",
+        blank=True,
+        null=True,
+        help_text="Введите категорию",
+    )
+    price = models.FloatField(
+        verbose_name="Цена за покупку",
+        blank=True,
+        null=True,
+        help_text="Введите цену за покупку",
+    )
+    created_at = models.DateField(
+        auto_now_add=True,
+        verbose_name="Дата создания",
+        blank=True,
+        null=True,
+        help_text="Введите дату создания",
+    )
+    updated_at = models.DateField(
+        auto_now=True,
+        verbose_name="дата последнего изменения",
+        blank=True,
+        null=True,
+        help_text="Введите дату последнего изменения",
+    )
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = "продукт"
+        verbose_name_plural = "продукты"
+        ordering = ["name"]
+
+
+class Category(models.Model):
+    name = models.CharField(
+        max_length=100,
+        verbose_name="Наименование",
+        blank=True,
+        null=True,
+        help_text="Введите категорию",
+    )
+    description = models.TextField(
+        verbose_name="Описание",
+        help_text="Введите описание",
+    )
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = "категория"
+        verbose_name_plural = "категории"
+        ordering = ["name"]
