@@ -1,5 +1,5 @@
-from django.core.management.base import BaseCommand
 from django.core.management import call_command
+from django.core.management.base import BaseCommand
 from django.db import connection
 
 from catalog.models import Category, Product
@@ -23,5 +23,5 @@ class Command(BaseCommand):
             call_command("loaddata", "catalog/fixtures/category_fixture.json")
             call_command("loaddata", "catalog/fixtures/product_fixture.json")
             self.stdout.write(
-                self.style.SUCCESS(f"Фикстура загружена в базу данных")
+                self.style.SUCCESS("Фикстура загружена в базу данных")
             )
