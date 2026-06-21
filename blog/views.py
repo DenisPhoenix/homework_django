@@ -18,7 +18,7 @@ class BlogListView(ListView):
 class BlogDeleteView(DeleteView):
     model = Blog
     template_name = "blog/blog_confirm_delete.html"
-    success_url = reverse_lazy("blog:blog_list")
+    success_url = reverse_lazy("blog:home")
 
 
 class BlogCreateView(CreateView):
@@ -31,7 +31,7 @@ class BlogCreateView(CreateView):
         "counter_view",
     ]
     template_name = "blog/blog_form.html"
-    success_url = reverse_lazy("blog:blog_list")
+    success_url = reverse_lazy("blog:home")
 
 
 class BlogUpdateView(UpdateView):
