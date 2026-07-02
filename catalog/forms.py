@@ -1,10 +1,30 @@
 from django import forms
 from django.core.exceptions import ValidationError
+from django.forms import BooleanField
 
 from .models import Product
 
 
-class ProductForm(forms.ModelForm):
+class StyleFormMixin:
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        for fild_name, fild in self.fields.items():
+            if isinstance(fild, BooleanField):
+                fild.widget.attrs.update(
+                    {
+                        "class": "form-check-input",
+                    }
+                )
+            else:
+                fild.widget.attrs.update(
+                    {
+                        "class": "form-control",
+                    }
+                )
+
+
+class ProductForm(StyleFormMixin, forms.ModelForm):
     class Meta:
         model = Product
         fields = "__all__"
