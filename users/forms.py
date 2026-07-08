@@ -1,4 +1,4 @@
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.forms import BooleanField
 
 from .models import User
@@ -19,3 +19,7 @@ class CustomUserCreationForm(StyleFormMixin, UserCreationForm):
     class Meta(UserCreationForm.Meta):
         model = User
         fields = ("email", "password1", "password2")
+
+
+class CustomAuthenticationForm(StyleFormMixin, AuthenticationForm):
+    pass
