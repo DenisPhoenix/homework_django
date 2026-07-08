@@ -6,7 +6,7 @@ class User(AbstractUser):
     email = models.CharField(
         max_length=50, unique=True, verbose_name="Электронная почта"
     )
-
+    username = models.CharField(max_length=50, unique=False, blank=True, null=True, verbose_name="Имя пользователя")
     phone_number = models.CharField(
         max_length=15, blank=True, null=True, verbose_name="Номер телефона"
     )
@@ -18,7 +18,7 @@ class User(AbstractUser):
     )
 
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = ("username",)
+    REQUIRED_FIELDS = ["username"]
 
     def __str__(self):
         return self.email
