@@ -8,4 +8,5 @@ from users.forms import CustomUserCreationForm
 class RegisterView(CreateView):
     form_class = CustomUserCreationForm
     template_name = "users/registration/register.html"
-    success_url = reverse_lazy("product_list")
+    def get_success_url(self):
+        return reverse_lazy("catalog:product_list")
