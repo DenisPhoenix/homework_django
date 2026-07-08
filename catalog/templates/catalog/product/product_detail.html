@@ -17,7 +17,9 @@
                     <p class="card-text">Описание: {{ product.description }}</p>
                     <p class="card-text">Цена: {{ product.price }}</p>
                     <div class="d-flex justify-content-between align-items-center">
-                        <a role="button" class="btn btn-secondary" href="{% url 'catalog:home' %}">Назад</a>
+                        <a role="button" class="btn btn-primary" href="{% url 'catalog:product_update' product.pk %}">Редактировать</a>
+                        <a role="button" class="btn btn-secondary" href="{% url 'catalog:product_list' %}">Назад</a>
+                        <a role="button" class="btn btn-danger" href="{% url 'catalog:product_delete' product.pk %}">Удалить</a>
                     </div>
                 </div>
             </div>
