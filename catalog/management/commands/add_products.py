@@ -22,6 +22,4 @@ class Command(BaseCommand):
 
             call_command("loaddata", "catalog/fixtures/category_fixture.json")
             call_command("loaddata", "catalog/fixtures/product_fixture.json")
-            self.stdout.write(
-                self.style.SUCCESS("Фикстура загружена в базу данных")
-            )
+            self.stdout.write(self.style.SUCCESS("Фикстура загружена в базу данных"))

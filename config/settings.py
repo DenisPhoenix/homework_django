@@ -1,8 +1,6 @@
 import os
 from pathlib import Path
 
-from django.conf.global_settings import (DEFAULT_FROM_EMAIL, EMAIL_BACKEND, EMAIL_HOST, EMAIL_HOST_USER, EMAIL_PORT,
-                                         EMAIL_USE_SSL)
 from dotenv import load_dotenv
 
 load_dotenv()

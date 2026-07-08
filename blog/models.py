@@ -9,9 +9,7 @@ class Blog(models.Model):
         verbose_name="Заголовок",
         help_text="Введите заголовок",
     )
-    description = models.TextField(
-        verbose_name="Содержимое", help_text="Введите содержимое"
-    )
+    description = models.TextField(verbose_name="Содержимое", help_text="Введите содержимое")
     preview = models.ImageField(
         upload_to="blogs/",
         blank=True,

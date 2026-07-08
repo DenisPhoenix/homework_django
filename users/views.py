@@ -29,9 +29,7 @@ class RegisterView(FormView):
         message = "Спасибо, что зарегистрировались в нашем сервисе!"
         from_email = EMAIL_HOST_USER
         recipient_list = [user_email]
-        send_mail(
-            subject, message, from_email, recipient_list, fail_silently=False
-        )
+        send_mail(subject, message, from_email, recipient_list, fail_silently=False)
 
 
 class CustomLoginView(LoginView):
