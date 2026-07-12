@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.db.models import F
 from django.urls import reverse, reverse_lazy
 from django.views.generic import CreateView, DeleteView, DetailView, ListView, UpdateView
@@ -5,23 +6,24 @@ from django.views.generic import CreateView, DeleteView, DetailView, ListView, U
 from .models import Blog
 
 
-class BlogListView(ListView):
+class BlogListView(LoginRequiredMixin, ListView):
     model = Blog
     template_name = "blog/blog_list.html"
     context_object_name = "blogs"
 
-    def get_queryset(self):
-        queryset = super().get_queryset().filter(is_publication=True)
-        return queryset
+    # def get_queryset(self):
+    #     queryset = super().get_queryset().filter(is_publication=True)
+    #     return queryset
 
 
-class BlogDeleteView(DeleteView):
+class BlogDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = Blog
     template_name = "blog/blog_confirm_delete.html"
     success_url = reverse_lazy("blog:home")
+    permission_required = "blog.delete_blog"
 
 
-class BlogCreateView(CreateView):
+class BlogCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = Blog
     fields = [
         "title",
@@ -32,9 +34,10 @@ class BlogCreateView(CreateView):
     ]
     template_name = "blog/blog_form.html"
     success_url = reverse_lazy("blog:home")
+    permission_required = "blog.add_blog"
 
 
-class BlogUpdateView(UpdateView):
+class BlogUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = Blog
     fields = [
         "title",
@@ -44,15 +47,17 @@ class BlogUpdateView(UpdateView):
         "counter_view",
     ]
     template_name = "blog/blog_form.html"
+    permission_required = "blog.change_blog"
 
     def get_success_url(self):
         return reverse("blog:blog_detail", kwargs={"pk": self.object.pk})
 
 
-class BlogDetailView(DetailView):
+class BlogDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     model = Blog
     template_name = "blog/blog_detail.html"
     context_object_name = "blog"
+    permission_required = "blog.view_blog"
 
     def get_object(self, queryset=None):
         obj = super().get_object(queryset)
