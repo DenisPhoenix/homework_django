@@ -1,5 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.core.exceptions import PermissionDenied
+from django.http import HttpResponseForbidden
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, DetailView, ListView, TemplateView, UpdateView
 
@@ -44,12 +45,23 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
             return ProductModeratorForm
         raise PermissionDenied
 
+    def get_object(self, queryset=None):
+        obj = super().get_object(queryset)
+        if obj.owner != self.request.user:
+            raise PermissionDenied("Вы можете удалять только свои продукты!")
+        return obj
 
-class ProductDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
+
+class ProductDeleteView(LoginRequiredMixin, DeleteView):
     model = Product
     template_name = "catalog/product/product_confirm_delete.html"
     success_url = reverse_lazy("catalog:product_list")
-    permission_required = "catalog.delete_product"
+
+    def get_object(self, queryset=None):
+        obj = super().get_object(queryset)
+        if obj.owner != self.request.user:
+            raise PermissionDenied("Вы можете удалять только свои продукты!")
+        return obj
 
 
 class ContactTemplateView(LoginRequiredMixin, TemplateView):
