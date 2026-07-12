@@ -3,6 +3,8 @@ from django.core.management import BaseCommand
 
 
 class Command(BaseCommand):
+    help = "Создание группы для модераторов продуктов"
+
     def handle(self, *args, **kwargs):
         moderator_group = Group.objects.create(name="Модератор продуктов")
 
