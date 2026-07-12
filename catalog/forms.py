@@ -17,7 +17,7 @@ class StyleFormMixin:
                 field.widget.attrs.update({"class": "form-control"})
 
 
-class ProductForm(StyleFormMixin, forms.ModelForm):
+class ProductModeratorForm(StyleFormMixin, forms.ModelForm):
     image = ImageField(
         label="Изображение",
         validators=[FileExtensionValidator(allowed_extensions=["jpg", "jpeg", "png"])],
@@ -39,6 +39,30 @@ class ProductForm(StyleFormMixin, forms.ModelForm):
     class Meta:
         model = Product
         fields = "__all__"
+
+
+class ProductForm(StyleFormMixin, forms.ModelForm):
+    image = ImageField(
+        label="Изображение",
+        validators=[FileExtensionValidator(allowed_extensions=["jpg", "jpeg", "png"])],
+        widget=forms.FileInput(attrs={"class": "form-control"}),
+        required=False,
+    )
+    FORBIDDEN_WORDS = {
+        "казино",
+        "криптовалюта",
+        "крипта",
+        "биржа",
+        "дешево",
+        "бесплатно",
+        "обман",
+        "полиция",
+        "радар",
+    }
+
+    class Meta:
+        model = Product
+        exclude = ("status",)
 
     def clean_name(self):
         name = self.cleaned_data.get("name")
