@@ -2,6 +2,11 @@ from django.db import models
 
 
 class Product(models.Model):
+    STATUS_CHOICES = [
+        ("published", "Опубликован"),
+        ("unpublished", "Не опубликован"),
+    ]
+
     name = models.CharField(
         max_length=100,
         verbose_name="Наименование",
@@ -33,6 +38,9 @@ class Product(models.Model):
         null=True,
         help_text="Введите цену за покупку",
     )
+    status = models.CharField(
+        max_length=20, verbose_name="Статус публикации", choices=STATUS_CHOICES, default="unpublished"
+    )
     created_at = models.DateField(
         auto_now_add=True,
         verbose_name="Дата создания",
@@ -55,6 +63,9 @@ class Product(models.Model):
         verbose_name = "продукт"
         verbose_name_plural = "продукты"
         ordering = ["name"]
+        permissions = [
+            ("can_unpublish_product", "Can unpublish product"),
+        ]
 
 
 class Category(models.Model):
