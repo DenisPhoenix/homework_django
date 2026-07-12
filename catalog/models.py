@@ -41,6 +41,15 @@ class Product(models.Model):
     status = models.CharField(
         max_length=20, verbose_name="Статус публикации", choices=STATUS_CHOICES, default="unpublished"
     )
+    owner = models.ForeignKey(
+        "users.User",
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True,
+        verbose_name="Владелец",
+        related_name="owner_products",
+    )
+
     created_at = models.DateField(
         auto_now_add=True,
         verbose_name="Дата создания",
