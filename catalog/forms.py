@@ -38,7 +38,7 @@ class ProductModeratorForm(StyleFormMixin, forms.ModelForm):
 
     class Meta:
         model = Product
-        fields = "__all__"
+        exclude = ("owner",)
 
 
 class ProductForm(StyleFormMixin, forms.ModelForm):
@@ -62,7 +62,7 @@ class ProductForm(StyleFormMixin, forms.ModelForm):
 
     class Meta:
         model = Product
-        exclude = ("status",)
+        exclude = ("status", "owner")
 
     def clean_name(self):
         name = self.cleaned_data.get("name")
