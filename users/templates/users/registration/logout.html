@@ -1,0 +1,11 @@
+{% extends 'users/base.html' %}
+
+{% block title %}Вход{% endblock %}
+
+{% block content %}
+<h2>Успешный выход из аккаунта</h2>
+<p>Спасибо, что посетили наш сайт</p>
+<a class="btn btn-success" href="{% url 'users:login' %}">Войти</a>
+<a class="btn btn-secondary" href="{% url 'catalog:product_list' %}">Главная</a>
+
+{% endblock %}

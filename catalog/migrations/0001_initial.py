@@ -35,9 +35,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "description",
-                    models.TextField(
-                        help_text="Введите описание", verbose_name="Описание"
-                    ),
+                    models.TextField(help_text="Введите описание", verbose_name="Описание"),
                 ),
             ],
             options={
@@ -68,9 +66,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "description",
-                    models.TextField(
-                        help_text="Введите описание", verbose_name="Описание"
-                    ),
+                    models.TextField(help_text="Введите описание", verbose_name="Описание"),
                 ),
                 (
                     "image",

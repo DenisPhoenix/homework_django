@@ -1,0 +1,14 @@
+{% extends 'users/base.html' %}
+
+{% block title %}Вход{% endblock %}
+
+{% block content %}
+<div class="container">
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-success">Вход</button>
+        <a class="btn btn-secondary" href="{% url 'catalog:product_list' %}">Отмена</a>
+    </form>
+</div>
+{% endblock %}

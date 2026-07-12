@@ -20,9 +20,7 @@ class StyleFormMixin:
 class ProductForm(StyleFormMixin, forms.ModelForm):
     image = ImageField(
         label="Изображение",
-        validators=[
-            FileExtensionValidator(allowed_extensions=["jpg", "jpeg", "png"])
-        ],
+        validators=[FileExtensionValidator(allowed_extensions=["jpg", "jpeg", "png"])],
         widget=forms.FileInput(attrs={"class": "form-control"}),
         required=False,
     )
@@ -44,9 +42,7 @@ class ProductForm(StyleFormMixin, forms.ModelForm):
 
     def clean_name(self):
         name = self.cleaned_data.get("name")
-        name_words = [
-            word.strip(".,!?;:()\"'") for word in name.lower().split()
-        ]
+        name_words = [word.strip(".,!?;:()\"'") for word in name.lower().split()]
         for name_word in name_words:
             if name_word in self.FORBIDDEN_WORDS:
                 raise ValidationError("Эти слова запрещены в названии")
@@ -54,9 +50,7 @@ class ProductForm(StyleFormMixin, forms.ModelForm):
 
     def clean_description(self):
         description = self.cleaned_data.get("description")
-        description_words = [
-            word.strip(".,!?;:()\"'") for word in description.lower().split()
-        ]
+        description_words = [word.strip(".,!?;:()\"'") for word in description.lower().split()]
         for description_word in description_words:
             if description_word in self.FORBIDDEN_WORDS:
                 raise ValidationError("Эти слова запрещены в описании")
@@ -73,7 +67,5 @@ class ProductForm(StyleFormMixin, forms.ModelForm):
         if image:
             megabyte_limit = 5.0
             if image.size > megabyte_limit * 1024 * 1024:
-                raise ValidationError(
-                    f"Размер файла не должен превышать {megabyte_limit} МБ"
-                )
+                raise ValidationError(f"Размер файла не должен превышать {megabyte_limit} МБ")
         return image
