@@ -17,11 +17,11 @@
                     <p class="card-text">Описание: {{ product.description }}</p>
                     <p class="card-text">Цена: {{ product.price }}</p>
                     <div class="d-flex justify-content-between align-items-center">
-                        {% if request.user == object.owner %}
+                        {% if request.user == object.owner or perms.catalog.can_unpublish_product %}
                         <a role="button" class="btn btn-primary" href="{% url 'catalog:product_update' product.pk %}">Редактировать</a>
                         {% endif %}
                         <a role="button" class="btn btn-secondary" href="{% url 'catalog:product_list' %}">Назад</a>
-                        {% if request.user == object.owner %}
+                        {% if request.user == object.owner or perms.catalog.can_unpublish_product %}
                         <a role="button" class="btn btn-danger" href="{% url 'catalog:product_delete' product.pk %}">Удалить</a>
                         {% endif %}
                     </div>
