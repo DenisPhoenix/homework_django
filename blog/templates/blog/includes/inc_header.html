@@ -2,6 +2,8 @@
     <h1>Блоги</h1>
     <nav>
         <a href="{% url 'blog:home' %}" class="btn btn-primary mb-4">Список блогов</a>
+        {% if perms.blog.add_blog %}
         <a href="{% url 'blog:blog_create' %}" class="btn btn-primary mb-4">Добавить блог</a>
+        {% endif %}
     </nav>
 </header>
