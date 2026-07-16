@@ -8,12 +8,22 @@ from django.views.generic import CreateView, DeleteView, DetailView, ListView, T
 from catalog.models import Product
 
 from .forms import ProductForm, ProductModeratorForm
+from .services import ProductService
 
 
 class ProductListView(ListView):
     model = Product
     template_name = "catalog/product/product_list.html"
     context_object_name = "products"
+
+
+class ProductCacheListView(ListView):
+    model = Product
+    template_name = "catalog/product/product_cache_list.html"
+    context_object_name = "products"
+
+    def get_queryset(self):
+        return ProductService.get_products_from_cache()
 
 
 @method_decorator(cache_page(60), name="dispatch")
